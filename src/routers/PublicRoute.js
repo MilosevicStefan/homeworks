@@ -2,19 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-export const PublicRoute = ({
+
+
+const PublicRoute = ({
   isAuthenticated,
-  component: Component,
-  ...rest
-}) => (
-    <Route {...rest} component={(props) => (
-      isAuthenticated ? (
-        <Redirect to="/dashboard" />
-      ) : (
-          <Component {...props} />
-        )
-    )} />
-  );
+  component,
+  ...rest }) => {
+  let componentToShow = isAuthenticated ? () => <Redirect to="/dashboard" /> : component ;
+   return (<Route {...rest} key='' component={componentToShow} />
+  )
+}
+
+
 
 const mapStateToProps = (state) => ({
   isAuthenticated: !!state.auth.uid

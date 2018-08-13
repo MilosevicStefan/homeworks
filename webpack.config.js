@@ -27,23 +27,21 @@ module.exports = (env) => {
         exclude: /node_modules/
       }, {
         test: /\.s?css$/,
-        use: CSSExtract.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader', options: {
+              includePaths: ['./node_modules']
             }
-          ]
-        })
-      }]
+          }
+        ]
+      }
+]
     },
     plugins: [
       CSSExtract,
